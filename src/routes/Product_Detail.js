@@ -24,9 +24,7 @@ function DetailComponent(props) {
   function ErrorMent() {
     return(
       <div>
-        {
-          setCheckValue == true ? <div className="alert alert-warning"> 숫자만 입력 가능합니다 </div> : null
-        }
+         <div className="alert alert-warning"> 숫자만 입력 가능합니다 </div>
       </div>
     )
   }
@@ -45,9 +43,7 @@ function DetailComponent(props) {
 
     useEffect(()=>{
       if (isNaN(num) == true){
-        console.log('잘못 입력')
         setCheckValue(true)
-
       }
       else(
         setCheckValue(false)
@@ -71,8 +67,11 @@ function DetailComponent(props) {
               <hr></hr>
               <p>구매 수량</p>
               <input onChange={(e)=>{ setNum(e.target.value) }}></input>
-                {
-                  setCheckValue == true ? <ErrorMent/> : null
+                {/* {
+                  checkValue == true ? console.log("잘 입력 했음"), <ErrorMent></ErrorMent> : console.log("잘못 입력함")
+                } */}
+                      {
+                  checkValue == true ? <ErrorMent/>: null
                 }
             </div>
           </div>
