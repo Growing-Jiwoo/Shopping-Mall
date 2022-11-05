@@ -1,16 +1,26 @@
 /* eslint-disable*/
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import './App.css';
 import { Row, Col, Navbar, Container, Nav } from 'react-bootstrap';
 import data from "./data.js";
 import DetailComponent from "./routes/Product_Detail.js";
-
+import styled from 'styled-components'
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
+
+let Createbtn = styled.button`
+ background : ${ props => props.bg};
+ color : ${ props => props.bg == 'blue' ? 'white' : 'black'};
+ padding : 10px
+`
+
+// let Createbtn_copy = styled(Createbtn)`
+//   padding: 50px;
+// `;
 
 function App() {
 
-  let [shoes, setShoes] = useState(data)
+  let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
 
   function shoesArraySort() {
@@ -34,6 +44,9 @@ function App() {
 
   return (
     <div className="App">
+      <Createbtn bg = "blue"></Createbtn>
+
+      
       <Navbar bg="light" variant="light">
         <Container>
           <Navbar.Brand href="/" >Shopping Mall</Navbar.Brand>
