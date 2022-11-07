@@ -5,16 +5,28 @@ import './App.css';
 import { Row, Col, Navbar, Container, Nav } from 'react-bootstrap';
 import data from "./data.js";
 import DetailComponent from "./routes/Product_Detail.js";
+import axios from "axios";
 
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 
 function App() {
 
   let [shoes, setShoes] = useState(data)
+  let [count, setCount] = useState(2);
+  let [overnum, setOvernum] = useState(true)
   let navigate = useNavigate();
 
+  function getData(count) {
+    axios.get(`https://codingapple1.github.io/shop/data${count}.json`)
+      .then((data) => {
+        data.data.map((value, index) => {
+          let new_shoes = [...shoes, ...data.data]
+          setShoes(new_shoes)
+        })
+      })
+  }
+
   function shoesArraySort() {
-    console.log(shoes)
     let shoes_array_sort = [...shoes].sort(function (a, b) {
       let x = a.title.toLowerCase();
       let y = b.title.toLowerCase();
@@ -28,7 +40,6 @@ function App() {
 
       return 0;
     })
-
     setShoes(shoes_array_sort)
   }
 
@@ -51,6 +62,7 @@ function App() {
               <img src={process.env.PUBLIC_URL + '/bg.png'} width={"90%"} alt="" />
             </div>
             <button onClick={() => { shoesArraySort() }}>정렬</button>
+
             <Container className="product">
               <Row>
 
@@ -65,26 +77,28 @@ function App() {
                 }
               </Row>
             </Container>
+            <button onClick={() => {
+              setCount(count + 1)
+
+              if (count == 2) {
+                getData(count)
+              }
+              else if (count == 3) {
+                getData(count)
+              }
+              else {
+                setOvernum(false)
+              }
+
+            }}>버튼</button>
+
+            {
+              overnum == false ? <div>상품 없음</div> : null
+            }
           </div>
         } />
 
         <Route path="/detail/:id" element={<DetailComponent shoes={shoes} />}></Route>
-
-        {/* <Route path="/detail" element={
-          <div>
-            {
-              shoes.map((value, index) => {
-                return (
-                  <Col>
-                    <DetailComponent i={index} shoes={shoes[index]} />
-                  </Col>
-                )
-              })
-            }
-          </div>
-        }>
-
-        </Route>  */}
 
         <Route path="*" element={<div>없는 페이지임 ㅋ</div>}></Route>
 
@@ -96,6 +110,7 @@ function App() {
     </div>
   );
 }
+
 
 function AboutComponent() {
   return (
