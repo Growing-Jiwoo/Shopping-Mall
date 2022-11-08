@@ -43,6 +43,16 @@ function App() {
     setShoes(shoes_array_sort)
   }
 
+  function ProductComponent(props) {
+    return (
+      <div>
+        <img onClick={() => {navigate(`/detail/${props.shoes.id}`)}} src={"https://codingapple1.github.io/shop/shoes" + (props.shoes.id + 1) + ".jpg"} width={"80%"} alt="" />
+        <h4>{props.shoes.title}</h4>
+        <p>{props.shoes.content}</p>
+      </div>
+    )
+  }
+
   return (
     <div className="App">
       <Navbar bg="light" variant="light">
@@ -120,14 +130,6 @@ function AboutComponent() {
   )
 }
 
-function ProductComponent(props) {
-  return (
-    <div>
-      <img src={"https://codingapple1.github.io/shop/shoes" + (props.shoes.id + 1) + ".jpg"} width={"80%"} alt="" />
-      <h4>{props.shoes.title}</h4>
-      <p>{props.shoes.content}</p>
-    </div>
-  )
-}
+
 
 export default App;
