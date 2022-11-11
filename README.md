@@ -13,4 +13,4 @@ CSS-in-JS (styled-components), useEffect 학습 및 해당 라이브러리를 �
 버튼 클릭 시 axios(), fetch()를 통해 서버와 통신하여 불러온 데이터로 상품 추가 등록 기능 구현
 
 ## day5
-상품 상세 정보를 담을 Tab UI 추가, styled-components를 이용한 상세 정보 내용 애니메이션 효과 주기
+상품 상세 정보를 담을 Tab UI 추가, styled-components를 이용한 상세 정보 내용 애니메이션 효과 적용
