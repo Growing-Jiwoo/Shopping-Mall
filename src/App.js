@@ -5,6 +5,7 @@ import './App.css';
 import { Row, Col, Navbar, Container, Nav } from 'react-bootstrap';
 import data from "./data.js";
 import DetailComponent from "./routes/Product_Detail.js";
+import Cart from "./routes/Cart.js";
 import axios from "axios";
 
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
@@ -61,6 +62,7 @@ function App() {
           <Nav className="me-auto">
             <Nav.Link onClick={() => { navigate('/') }}>홈</Nav.Link>
             <Nav.Link onClick={() => { navigate('detail') }}>상세페이지</Nav.Link>
+            <Nav.Link onClick={() => { navigate('cart') }}>장바구니</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
@@ -109,6 +111,8 @@ function App() {
         } />
 
         <Route path="/detail/:id" element={<DetailComponent shoes={shoes} />}></Route>
+
+        <Route path="/cart" element={<Cart/>}></Route>
 
         <Route path="*" element={<div>없는 페이지임 ㅋ</div>}></Route>
 

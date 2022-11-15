@@ -101,7 +101,7 @@ function DetailComponent(props) {
               <Nav.Link onClick={() => { setChangeTab(2) }} eventKey="link-2">Option 3</Nav.Link>
             </Nav.Item>
           </Nav>
-          <TabContents tabname={changeTab} />
+          <TabContents shoes={props.shoes} tabname={changeTab} />
           {/* <Box>
             <span>👩🏻‍💻</span>
           </Box> */}
@@ -124,10 +124,10 @@ function DetailComponent(props) {
 // }
 
 
-function TabContents({ tabname }) {
+function TabContents({ tabname, shoes }) {
   return <div>
     <TabTextAnimation>
-      {[<div>탭0</div>, <div>탭1</div>, <div>탭2</div>][tabname]}
+      {[<div>{shoes[0].title}</div>, <div>탭1</div>, <div>탭2</div>][tabname]}
     </TabTextAnimation>
   </div>
 }
