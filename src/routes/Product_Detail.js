@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react";
 import { Nav } from 'react-bootstrap';
-
 import styled from "styled-components"; /* 1.keyframes를 import하고 */
-
+import { insertProduct, changeBoolean } from "./../store.js"
+import { useDispatch, useSelector } from "react-redux";
 
 const TabTextAnimation = styled.div`
   div {
@@ -21,6 +21,10 @@ function DetailComponent(props) {
   let [alert, setAlert] = useState(true)
   let [num, setNum] = useState('')
   let [checkValue, setCheckValue] = useState(true)
+  let dispatch = useDispatch();
+
+  let product_boolean = useSelector((state) => { return state.product_boolean })
+
 
   let find_product = props.shoes.find(function (x) {
     return x.id == id
@@ -78,13 +82,16 @@ function DetailComponent(props) {
             <h4 className="pt-5">{find_product.title}</h4>
             <p>{find_product.content}</p>
             <p>{find_product.price}</p>
-            <button className="btn btn-danger" onClick={() => { }}>주문하기</button>
+            <button className="btn btn-danger" onClick={() => {dispatch(insertProduct({id : 1, name : 'Red Knit', count : 1}))}}>주문하기</button>
+
+            {
+              checkValue === true ? <ProductOverlap/> : null
+            }
+            {/* <div>중복</div> */}
             <hr></hr>
             <p>구매 수량</p>
             <input onChange={(e) => { setNum(e.target.value) }}></input>
-            {/* {
-                  checkValue == true ? console.log("잘 입력 했음"), <ErrorMent></ErrorMent> : console.log("잘못 입력함")
-                } */}
+
             {
               checkValue === true ? <ErrorMent /> : null
             }
@@ -111,25 +118,17 @@ function DetailComponent(props) {
   )
 }
 
-// function TabContents(props){
-//   if(props.tabname === 0){
-//     return <div>탭0</div>
-//   }
-//   if(props.tabname === 1){
-//     return <div>탭1</div>
-//   }
-//   if(props.tabname === 2){
-//     return <div>탭2</div>
-//   }
-// }
-
-
 function TabContents({ tabname, shoes }) {
   return <div>
     <TabTextAnimation>
       {[<div>{shoes[0].title}</div>, <div>탭1</div>, <div>탭2</div>][tabname]}
     </TabTextAnimation>
   </div>
+}
+
+
+function ProductOverlap(){
+  return <div> 중복 </div>
 }
 
 

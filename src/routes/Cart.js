@@ -1,6 +1,7 @@
 import { Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeInitialState, changeInitialState_2, updateRemaining } from "./../store.js"
+import { updateRemaining } from "./../store.js"
+import { changeInitialState, changeInitialState_2, plusAge } from "./../store/userSlice.js"
 
 
 function Cart() {
@@ -14,7 +15,7 @@ function Cart() {
     return (
         <div>
             <hr></hr>
-            {user}의 장바구니
+            {user.name}의 장바구니 / {user.name}의 나이는 {user.age}살
             <hr></hr>
             <Table>
                 <thead>
@@ -27,7 +28,7 @@ function Cart() {
                 </thead>
                 <tbody>
                     {
-                        product_info.map((value, index) =>
+                        product_info.product.map((value, index) =>
                             <TableValue index={index} />
                         )
                     }
@@ -38,14 +39,14 @@ function Cart() {
     function TableValue(props) {
         return (
             <tr key={props.index}>
-                <td>{product_info[props.index].id}</td>
-                <td>{product_info[props.index].name}</td>
-                {/* <td>{product_info[props.index].count}</td> */}
-                <td>{remaining}</td>
+                <td>{product_info.product[props.index].id}</td>
+                <td>{product_info.product[props.index].name}</td>
+                <td>{product_info.product[props.index].count}</td>
                 <td>안녕</td>
                 <td>
-                    <button onClick={() => {dispatch(changeInitialState())}}>변경</button>
-                    <button onClick={() => {dispatch(updateRemaining())}}>+</button>
+                    {/* <button onClick={() => {dispatch(changeInitialState())}}>변경</button> */}
+                    <button onClick={() => {dispatch(plusAge(5))}}>변경</button>
+                    <button onClick={() => {dispatch(updateRemaining(product_info.product[props.index].id))}}>+</button>
                 </td>
             </tr>
         )

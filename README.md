@@ -17,3 +17,6 @@ CSS-in-JS (styled-components), useEffect 학습 및 해당 라이브러리를 �
 
 ## day6
 Redux 기초 학습 및 Redux를 활용한 장바구니 UI 구현 part.1
+
+## day7
+Redux 기초 학습 및 Redux를 활용한 장바구니 UI 구현 part.2 (겹치는 물건 장바구니에 담았을 때 처리 미구현)

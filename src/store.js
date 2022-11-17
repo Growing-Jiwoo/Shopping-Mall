@@ -1,53 +1,54 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit'
+import { useDispatch } from 'react-redux';
+import user from './store/userSlice.js'
 
-let remaining = createSlice({
-    name : 'remaining',
-    initialState : 0,
-    reducers : {
-        updateRemaining(state){
-            return state +=1
-        }
-    }
-})
-
-export let {updateRemaining} = remaining.actions
-
-let user = createSlice({
-    name : 'user',
-    initialState : 'kim',
-    reducers : {
-        changeInitialState(state){
-            // return 'kimjiwoo'    
-            return state + 'jiwoo'
-        },
-        changeInitialState_2(){
-            // return 'kimjiwoo'    
-            return 'ohjihyun'
-        },
-    }
-});
-
-export let {changeInitialState, changeInitialState_2} = user.actions
+// let remaining = createSlice({
+//     name : 'remaining',
+//     initialState : 0,
+//     reducers : {
+//         updateRemaining(state){
+//             return state +=1
+//         }
+//     }
+// })
 
 let stock = createSlice({
-    name : 'stock',
-    initialState : [10,11,12]
+    name: 'stock',
+    initialState: [10, 11, 12]
 });
 
-let product_info = createSlice({    
-    name : 'product_info',
-    initialState : [
-        {id : 0, name : 'White and Black', count : 2},
-        {id : 2, name : 'Grey Yordan', count : 1}
-      ]
+let product_info = createSlice({
+    name: 'product_info',
+    initialState: {product : [
+        { id: 0, name: 'White and Black', count: 2 },
+        { id: 1, name: 'Grey Yordan', count: 1 }
+    ], boolean : true},
+    reducers: {
+        updateRemaining(state, action) {
+            let num = state.findIndex((a) => { return a.id === action.payload })
+            state[num].count++
+
+        },
+        insertProduct(state, action) {
+            let check_overlap = state.product.findIndex((a) => { return a.id === action.payload.id })
+
+            if (check_overlap === -1) {
+                state.product.push(action.payload)
+            } else {
+                state.boolean = false
+            }
+        },
+    }
+
 })
 
+export let { updateRemaining, insertProduct } = product_info.actions
 
 export default configureStore({
-  reducer: {
-    user : user.reducer,
-    stock : stock.reducer,
-    product_info : product_info.reducer,
-    remaining : remaining.reducer
-   }
+    reducer: {
+        user: user.reducer,
+        stock: stock.reducer,
+        product_info: product_info.reducer,
+        product_boolean : product_info.getInitialState
+    }
 }) 
