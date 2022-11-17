@@ -21,7 +21,10 @@ function DetailComponent(props) {
   let [alert, setAlert] = useState(true)
   let [num, setNum] = useState('')
   let [checkValue, setCheckValue] = useState(true)
+  let [checkOverlap, setCheckOverlap] = useState(true)
+
   let dispatch = useDispatch();
+  let product_info = useSelector((state) => { return state.product_info })
 
   let product_boolean = useSelector((state) => { return state.product_boolean })
 
@@ -82,10 +85,9 @@ function DetailComponent(props) {
             <h4 className="pt-5">{find_product.title}</h4>
             <p>{find_product.content}</p>
             <p>{find_product.price}</p>
-            <button className="btn btn-danger" onClick={() => {dispatch(insertProduct({id : 1, name : 'Red Knit', count : 1}))}}>주문하기</button>
-
+            <button className="btn btn-danger" onClick={() => {dispatch(insertProduct({id : 2, name : 'Red Knit', count : 1}))}}>주문하기</button>
             {
-              checkValue === true ? <ProductOverlap/> : null
+              product_info.checkBoolean == false ? <ProductOverlap/> : null 
             }
             {/* <div>중복</div> */}
             <hr></hr>
@@ -128,7 +130,7 @@ function TabContents({ tabname, shoes }) {
 
 
 function ProductOverlap(){
-  return <div> 중복 </div>
+  return <div> 주문하신 물품이 이미 장바구니에 있습니다. </div>
 }
 
 

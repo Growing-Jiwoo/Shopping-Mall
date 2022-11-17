@@ -22,20 +22,22 @@ let product_info = createSlice({
     initialState: {product : [
         { id: 0, name: 'White and Black', count: 2 },
         { id: 1, name: 'Grey Yordan', count: 1 }
-    ], boolean : true},
+    ], checkBoolean : true},
     reducers: {
         updateRemaining(state, action) {
-            let num = state.findIndex((a) => { return a.id === action.payload })
-            state[num].count++
-
+            let num = state.product.findIndex((a) => { return a.id === action.payload })
+            state.product[num].count++
         },
         insertProduct(state, action) {
+            
             let check_overlap = state.product.findIndex((a) => { return a.id === action.payload.id })
 
             if (check_overlap === -1) {
                 state.product.push(action.payload)
+                state.checkBoolean = true
+
             } else {
-                state.boolean = false
+                state.checkBoolean = false
             }
         },
     }
@@ -48,7 +50,6 @@ export default configureStore({
     reducer: {
         user: user.reducer,
         stock: stock.reducer,
-        product_info: product_info.reducer,
-        product_boolean : product_info.getInitialState
+        product_info: product_info.reducer
     }
 }) 

@@ -16,8 +16,10 @@ CSS-in-JS (styled-components), useEffect 학습 및 해당 라이브러리를 �
 상품 상세 정보를 담을 Tab UI 추가, styled-components를 이용한 상세 정보 내용 애니메이션 효과 주기
 
 ## day6
-Redux 기초 학습 및 Redux를 활용한 장바구니 UI 구현 part.1
+Redux-toolkit 기초 학습 및 Redux-toolkit를 활용한 장바구니 기능 구현 part.1
 
 ## day7
-Redux 기초 학습 및 Redux를 활용한 장바구니 UI 구현 part.2   
-(겹치는 물건 장바구니에 담았을 때 처리 미구현)
+Redux-toolkit 기초 학습 및 Redux를 활용한 장바구니 기능 구현 part.2   
+
+## day7-2
+겹치는 물건 장바구니에 담았을 때 기능 구현 및 Redux-toolkit 추가 학습
