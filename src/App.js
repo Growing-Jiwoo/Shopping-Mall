@@ -1,8 +1,8 @@
 /* eslint-disable*/
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import './App.css';
-import { Row, Col, Navbar, Container, Nav } from 'react-bootstrap';
+import { Row, Col, Navbar, Container, Nav, Card, Button} from 'react-bootstrap';
 import data from "./data.js";
 import DetailComponent from "./routes/Product_Detail.js";
 import Cart from "./routes/Cart.js";
@@ -12,10 +12,20 @@ import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 
 function App() {
 
+  useEffect(() => {
+    if(get_obj.length == 0){
+      localStorage.setItem('watched', JSON.stringify([]))
+    }
+  }, [])
+
+  let get_obj = JSON.parse(localStorage.getItem('watched'))
+
   let [shoes, setShoes] = useState(data)
   let [count, setCount] = useState(2);
   let [overnum, setOvernum] = useState(true)
   let navigate = useNavigate();
+
+
 
   function getData(count) {
     axios.get(`https://codingapple1.github.io/shop/data${count}.json`)
@@ -107,6 +117,17 @@ function App() {
             {
               overnum == false ? <div>상품 없음</div> : null
             }
+
+
+            {
+              get_obj.map((value, index) => {
+                return(
+                  <RecentlyViewed i={index} props={get_obj[index]}/>
+                )
+              })
+            }
+
+
           </div>
         } />
 
@@ -132,6 +153,24 @@ function AboutComponent() {
       </Outlet>
     </div>
   )
+}
+
+function RecentlyViewed(props) {
+  console.log(props.props)
+  // console.log("H12313131I")
+    return (
+      <div>
+        <Card style={{ width: '18rem' }}>
+          <Card.Body>
+            <Card.Title>{props.props.title}</Card.Title>
+            <Card.Text>
+                  {props.props.price}원
+            </Card.Text>
+          </Card.Body>
+        </Card>
+      </div>
+    )
+
 }
 
 

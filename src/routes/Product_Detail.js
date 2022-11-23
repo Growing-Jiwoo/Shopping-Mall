@@ -53,7 +53,27 @@ function DetailComponent(props) {
 
   props.shoes.find((x) => x.id === id)
 
+
+
+  
   useEffect(() => {
+    let get_obj = JSON.parse(localStorage.getItem('watched'))
+    let product_obj = {"id" : find_product.id, "price" : find_product.price, "title" : find_product.title}
+    get_obj.push(product_obj)
+
+    const newArray = get_obj.reduce(function(acc, current) {
+      console.log(current)
+      if (acc.findIndex(({ id }) => id === current.id) === -1) {
+        acc.push(current);
+      }
+      return acc;
+    }, []);
+
+    // const set = new Set(get_obj);
+    // const newArr = [...set];
+    
+    localStorage.setItem('watched', JSON.stringify(newArray))
+
     let timer = setTimeout(() => {
       setAlert(false)
     }, 2000)
