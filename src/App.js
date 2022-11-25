@@ -9,10 +9,12 @@ import Cart from "./routes/Cart.js";
 import axios from "axios";
 
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
+import { useQuery } from "react-query";
 
 function App() {
 
   useEffect(() => {
+
     if(get_obj.length == 0){
       localStorage.setItem('watched', JSON.stringify([]))
     }
@@ -25,7 +27,21 @@ function App() {
   let [overnum, setOvernum] = useState(true)
   let navigate = useNavigate();
 
+  // let result = useQuery('getname', () => {
+  //   axios.get('https://codingapple1.github.io/userdata.json')
+  //     .then((a) => { return a.data })
+  // })
 
+  // console.log(result.data)
+
+  let result = useQuery('getname', ()=>
+    axios.get('https://codingapple1.github.io/userdata.json')
+    .then((a)=>{ 
+      console.log("요청됨")
+      return a.data 
+    }),
+    {staleTime : 2000}
+  )
 
   function getData(count) {
     axios.get(`https://codingapple1.github.io/shop/data${count}.json`)
@@ -74,6 +90,12 @@ function App() {
             <Nav.Link onClick={() => { navigate('detail') }}>상세페이지</Nav.Link>
             <Nav.Link onClick={() => { navigate('cart') }}>장바구니</Nav.Link>
           </Nav>
+          <Nav className="ms-auto">
+            {/* { result.isLoading ? '로딩중' : result.data.name }님 안녕하세요 ! */}
+            { result.isLoading && '로딩중' }
+            { result.error && '에러남' }
+            { result.data && result.data.name + '님 안녕하세요 !' }
+            </Nav>
         </Container>
       </Navbar>
 
@@ -156,7 +178,7 @@ function AboutComponent() {
 }
 
 function RecentlyViewed(props) {
-  console.log(props.props)
+  // console.log(props.props)
   // console.log("H12313131I")
     return (
       <div>

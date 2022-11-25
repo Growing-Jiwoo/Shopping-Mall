@@ -23,3 +23,9 @@ Redux-toolkit 기초 학습 및 Redux를 활용한 장바구니 기능 구현 pa
 
 ## day7-2
 겹치는 물건 장바구니에 담았을 때 기능 구현 및 Redux-toolkit 추가 학습
+
+## day8
+localstorage를 활용한 최근 본 상품 목록 UI 및 기능 구현
+
+## day9
+react-query 기초 학습
