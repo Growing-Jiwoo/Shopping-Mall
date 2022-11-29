@@ -1,12 +1,16 @@
 /* eslint-disable*/
 
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import './App.css';
 import { Row, Col, Navbar, Container, Nav, Card, Button} from 'react-bootstrap';
 import data from "./data.js";
-import DetailComponent from "./routes/Product_Detail.js";
-import Cart from "./routes/Cart.js";
 import axios from "axios";
+
+// import DetailComponent from "./routes/Product_Detail.js";
+// import Cart from "./routes/Cart.js";
+
+const DetailComponent = lazy( () => import('./routes/Product_Detail.js') ) // lazy import
+const Cart = lazy( () => import('./routes/Cart.js') ) // lazy import
 
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import { useQuery } from "react-query";
@@ -23,7 +27,7 @@ function App() {
   let get_obj = JSON.parse(localStorage.getItem('watched'))
 
   let [shoes, setShoes] = useState(data)
-  let [count, setCount] = useState(2);
+  let [count, setCount] = useState(2); 
   let [overnum, setOvernum] = useState(true)
   let navigate = useNavigate();
 
@@ -98,7 +102,8 @@ function App() {
             </Nav>
         </Container>
       </Navbar>
-
+      
+      <Suspense fallback={<div>로딩중</div>}>
       <Routes>
         <Route path="/" element={
           <div>
@@ -152,14 +157,14 @@ function App() {
 
           </div>
         } />
-
-        <Route path="/detail/:id" element={<DetailComponent shoes={shoes} />}></Route>
+          <Route path="/detail/:id" element={<DetailComponent shoes={shoes} />}></Route>
 
         <Route path="/cart" element={<Cart/>}></Route>
 
         <Route path="*" element={<div>없는 페이지임 ㅋ</div>}></Route>
 
       </Routes>
+      </Suspense>
 
     </div>
   );

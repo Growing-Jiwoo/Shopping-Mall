@@ -1,8 +1,16 @@
+import { memo, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateRemaining } from "./../store.js"
 import { changeInitialState, changeInitialState_2, plusAge } from "./../store/userSlice.js"
 
+let Child = memo( function(){
+    return(
+        <div>
+            자식 컴포넌트
+        </div>
+    )  
+})
 
 function Cart() {
 
@@ -10,10 +18,13 @@ function Cart() {
     let stock = useSelector((state) => { return state.stock })
     let remaining = useSelector((state) => { return state.remaining })
     let product_info = useSelector((state) => { return state.product_info })
+    let [count, setCount] = useState(0);
     
     let dispatch = useDispatch()
     return (
         <div>
+            <Child></Child>
+            <button onClick={() => {setCount(count+1)}}>버튼</button>
             <hr></hr>
             {user.name}의 장바구니 / {user.name}의 나이는 {user.age}살
             <hr></hr>

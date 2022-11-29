@@ -29,3 +29,9 @@ localstorage를 활용한 최근 본 상품 목록 UI 및 기능 구현
 
 ## day9
 react-query 기초 학습
+
+## day10
+Chrome 확장 프로그램 (React Developer Tools, Redux) 학습   
+코드를 분할하여 성능을 개선시키는 lazy import, Suspense 학습   
+재렌더링을 막는 memo, useMemo 학습   
+렌더링 성능 저하를 해결해주는 useTransition 학습
